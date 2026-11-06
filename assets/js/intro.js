@@ -227,7 +227,7 @@
     stage.className = "canvas-stage";
     stage.innerHTML = ''
       + '<div class="canvas-backdrop"></div>'
-      + '<div class="canvas-badge">L</div>'
+      + '<div class="canvas-badge"><img src="assets/images/avatar.jpg" alt=""></div>'
       + '<div class="guide guide-v"></div>'
       + '<div class="guide guide-h"></div>'
       + '<div class="guide guide-h"></div>';
