@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f0f8ff">
+  <title>lmyoji</title>
+  <meta name="description" content="lmyoji 的个人站点。记录算法、智能体实验和后端项目。">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+        var path = location.pathname;
+        var isHome = /\/$/.test(path) || /index\.html$/.test(path);
+        var force = new URLSearchParams(location.search).get("intro") === "1";
+        var seen = localStorage.getItem("lmyoji-canvas-intro");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (isHome && !reduce && (!seen || force)) {
+          document.documentElement.classList.add("intro-preparing");
+          setTimeout(function () {
+            document.documentElement.classList.remove("intro-preparing");
+          }, 9000);
+        }
+      } catch (err) {}
+    })();
+  </script>
+</head>
+<body>
+  <header class="navbar" data-build="box" data-label="顶栏">
+    <div class="container nav-inner">
+      <a class="logo" href="./" data-build="place" data-label="站名">lmyoji</a>
+      <nav class="nav-links" aria-label="页面">
+        <a class="nav-link" href="#projects" data-build="place" data-label="项目">项目</a>
+        <a class="nav-link" href="#posts" data-build="place" data-label="文章">文章</a>
+        <a class="nav-link" href="https://github.com/lmyoji" data-build="place" data-label="GitHub">GitHub</a>
+      </nav>
+      <div class="nav-tools">
+        <button class="icon-btn" id="replayBtn" type="button" aria-label="重播开场动画">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+            <path d="M3 4v5h5"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" id="themeToggle" type="button" data-build="place" data-label="主题" aria-label="切换深色或浅色">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"></path>
+          </svg>
+        </button>
+        <button class="icon-btn menu-toggle" id="menuToggle" type="button" data-build="place" data-label="菜单" aria-label="打开菜单" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#projects">项目</a>
+      <a href="#posts">文章</a>
+      <a href="https://github.com/lmyoji">GitHub</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero hero-bento-screen" id="hero">
+      <div class="container hero-bento-container">
+        <div class="bento-grid" id="bentoGrid">
+          <div class="bento-card bento-intro" data-build="box" data-label="介绍">
+            <div class="bento-intro-top">
+              <div class="hero-badge" data-build="place" data-label="状态">
+                <span class="hero-badge-dot"></span>
+                <span>个人站点 · 刚搭好</span>
+              </div>
+              <div class="hero-location" data-build="place" data-label="地址">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <span>github.com/lmyoji</span>
+              </div>
+            </div>
+            <div class="bento-intro-body">
+              <span class="hero-greeting" data-build="type" data-label="问候">你好，我是</span>
+              <div class="hero-title-row">
+                <h1 class="hero-name" data-build="type" data-label="名字">lmyoji</h1>
+                <span class="hero-subtitle-pill" data-build="place" data-label="副题">笔记 · 项目 · 草稿</span>
+              </div>
+              <p class="hero-description" data-build="type" data-label="简介">这里放我自己的笔记：算法、智能体实验，还有后端小项目。页面先空着，写完一篇就补一篇。</p>
+            </div>
+            <div class="hero-links">
+              <a class="hero-link" href="https://github.com/lmyoji" data-build="place" data-label="GitHub">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.9-.64.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"></path>
+                </svg>
+                GitHub
+              </a>
+              <a class="hero-link hero-link-secondary" href="#projects" data-build="place" data-label="项目">项目</a>
+              <a class="hero-link hero-link-ghost" href="#posts" data-build="place" data-label="文章">文章</a>
+            </div>
+          </div>
+
+          <div class="bento-card bento-profile" data-build="box" data-label="名片">
+            <div class="profile-card-main">
+              <div class="avatar-wrapper" data-build="place" data-label="头像">
+                <span class="avatar-letter">L</span>
+              </div>
+              <div class="profile-card-info">
+                <div class="avatar-name" data-build="place" data-label="署名">lmyoji</div>
+                <div class="avatar-role" data-build="place" data-label="方向">Algorithms · Agents · Backend</div>
+                <div class="avatar-tags" data-build="place" data-label="技能">
+                  <span class="avatar-mini-tag">Go</span>
+                  <span class="avatar-mini-tag">Python</span>
+                  <span class="avatar-mini-tag">Agents</span>
+                </div>
+              </div>
+            </div>
+            <div class="avatar-stats">
+              <a class="stat" href="#posts" data-build="place" data-label="文章数">
+                <span class="stat-number">0</span>
+                <span class="stat-label">文章</span>
+              </a>
+              <a class="stat" href="#projects" data-build="place" data-label="项目数">
+                <span class="stat-number">2</span>
+                <span class="stat-label">项目</span>
+              </a>
+              <a class="stat" href="https://github.com/lmyoji?tab=repositories" data-build="place" data-label="仓库数">
+                <span class="stat-number">2</span>
+                <span class="stat-label">仓库</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="bento-card bento-tech" data-build="box" data-label="技术栈">
+            <div class="bento-card-header" data-build="place" data-label="栈标题">
+              <span class="bento-card-icon" aria-hidden="true">⌘</span>
+              <h2 class="bento-card-title">常写的东西</h2>
+              <span class="bento-card-badge">Stack</span>
+            </div>
+            <div class="bento-tech-groups">
+              <div class="bento-tech-row" data-build="place" data-label="语言">
+                <span class="tech-group-label">语言</span>
+                <div class="tech-pills">
+                  <span class="tech-pill tech-pill-blue">Go</span>
+                  <span class="tech-pill tech-pill-blue">Python</span>
+                  <span class="tech-pill tech-pill-blue">JS</span>
+                </div>
+              </div>
+              <div class="bento-tech-row" data-build="place" data-label="方向">
+                <span class="tech-group-label">方向</span>
+                <div class="tech-pills">
+                  <span class="tech-pill tech-pill-teal">Agents</span>
+                  <span class="tech-pill tech-pill-teal">Algorithms</span>
+                </div>
+              </div>
+              <div class="bento-tech-row" data-build="place" data-label="工程">
+                <span class="tech-group-label">工程</span>
+                <div class="tech-pills">
+                  <span class="tech-pill tech-pill-purple">Git</span>
+                  <span class="tech-pill tech-pill-purple">API</span>
+                  <span class="tech-pill tech-pill-purple">Pages</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card bento-focus" data-build="box" data-label="方向">
+            <div class="bento-card-header" data-build="place" data-label="方向标题">
+              <span class="bento-card-icon" aria-hidden="true">◎</span>
+              <h2 class="bento-card-title">想记下来的</h2>
+              <span class="bento-card-badge">Focus</span>
+            </div>
+            <ul class="bento-focus-list">
+              <li class="bento-focus-item" data-build="place" data-label="算法">
+                <span class="focus-index">01</span>
+                <div class="focus-detail">
+                  <div class="focus-name">算法笔记</div>
+                  <div class="focus-desc">做题和推导，写成以后自己还能看懂的记录</div>
+                </div>
+              </li>
+              <li class="bento-focus-item" data-build="place" data-label="智能体">
+                <span class="focus-index">02</span>
+                <div class="focus-detail">
+                  <div class="focus-name">智能体实验</div>
+                  <div class="focus-desc">模型调用、工具和工作流，先跑通再整理</div>
+                </div>
+              </li>
+              <li class="bento-focus-item" data-build="place" data-label="后端">
+                <span class="focus-index">03</span>
+                <div class="focus-detail">
+                  <div class="focus-name">后端小项目</div>
+                  <div class="focus-desc">Go、Python，以及给自己用的接口和工作台</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bento-card bento-latest" data-build="box" data-label="近况">
+            <div class="bento-card-header" data-build="place" data-label="近况标题">
+              <span class="bento-card-icon" aria-hidden="true">✎</span>
+              <h2 class="bento-card-title">最近的文章</h2>
+              <a class="bento-card-more" href="#posts">全部</a>
+            </div>
+            <p class="latest-empty" data-build="place" data-label="空状态">还没有文章。写好的笔记会先出现在这里。</p>
+          </div>
+        </div>
+
+        <a class="hero-scroll-hint" href="#posts" data-build="place" data-label="滚动">
+          <span class="scroll-mouse" aria-hidden="true"><span class="scroll-wheel"></span></span>
+          <span>往下是项目和文章</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="band below-fold" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>项目</h2>
+          <p>公开仓库里现在能看到的两个。</p>
+        </div>
+        <div class="project-grid">
+          <a class="project-card" href="https://github.com/lmyoji/openai-model-studio">
+            <span class="project-kicker">GitHub</span>
+            <h3>openai-model-studio</h3>
+            <p>OpenAI 多模型工作台，用来试对话、图像、语音和其余接口。</p>
+          </a>
+          <a class="project-card" href="https://github.com/lmyoji/lmyoji">
+            <span class="project-kicker">GitHub</span>
+            <h3>lmyoji</h3>
+            <p>算法、智能体、Go、Python 和后端工程的资料仓库。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band below-fold" id="posts">
+      <div class="container">
+        <div class="section-head">
+          <h2>最新文章</h2>
+          <p>列表是空的，这是故意留的。</p>
+        </div>
+        <div class="empty-panel">
+          <strong>还没有文章</strong>
+          <p>个人介绍和项目先放在上面。笔记写好以后，再加到这个位置。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer below-fold">
+    <div class="container footer-inner">
+      <span>lmyoji</span>
+      <a href="https://github.com/lmyoji">github.com/lmyoji</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/intro.js" defer></script>
+</body>
+</html>
